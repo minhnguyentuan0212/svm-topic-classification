@@ -1,6 +1,6 @@
 import json
-input_file = "data"
-output_file = ""
+input_file = "news_dataset"
+output_file = "data"
 
 with open(f'{input_file}.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
@@ -14,8 +14,9 @@ for item in data:
 #remove empty content and topic
 data = [item for item in data if item.get('topic') and item.get('content')]
 
-
-with open('train_cleandata.json', 'w', encoding='utf-8') as file:
+for item in data:
+    item['topic'] = item['topic'].lower()
+with open(f'{output_file}.json', 'w', encoding='utf-8') as file:
     json.dump(data, file, ensure_ascii=False, indent=4)
 
 print("---------------------- Done ---------------------")
